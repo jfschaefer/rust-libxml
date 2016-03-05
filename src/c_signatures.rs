@@ -11,7 +11,9 @@ extern "C" {
     // pub fn xmlFree(name : *const c_char);
     // pub fn xmlNewNode(ns : *mut c_void, name: *const c_char) -> *mut c_void;
     pub fn xmlNewDocNode(doc: *mut c_void, ns : *mut c_void, name: *const c_char, content: *const c_char) -> *mut c_void;
-    // pub fn xmlFreeNode(cur: *mut c_void);
+    pub fn xmlNewDocText(doc: *const c_void, content: *const c_char) -> *mut c_void;
+    pub fn xmlFreeNode(cur: *mut c_void);
+    pub fn xmlUnlinkNode(cur: *mut c_void);
     pub fn xmlNewNs(node : *mut c_void, href: *const c_char, prefix: *const c_char) -> *mut c_void;
     pub fn xmlNewChild(parent : *mut c_void, ns: *mut c_void, name: *const c_char, content: *const c_char) -> *mut c_void;
     pub fn xmlNewTextChild(parent : *mut c_void, ns: *mut c_void, name: *const c_char, content: *const c_char) -> *mut c_void;
@@ -22,6 +24,7 @@ extern "C" {
     pub fn xmlDocGetRootElement(doc: *const c_void) -> *mut c_void;
     pub fn xmlDocSetRootElement(doc: *const c_void, root: *const c_void) -> *mut c_void;
     pub fn xmlGetProp(node: *const c_void, name: *const c_char) -> *const c_char;
+    pub fn xmlNewProp(node: *const c_void, name: *const c_char, value: *const c_char) -> *mut c_void;
 
     //helper for tree
     pub fn xmlNextSibling(cur: *const c_void) -> *mut c_void;

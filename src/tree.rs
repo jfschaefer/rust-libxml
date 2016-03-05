@@ -262,6 +262,30 @@ impl Node {
     }
   }
 
+  /// Create a new text node, bound to a given document.
+  pub fn new_text_node(doc : &Document, content : &str) -> Result<Self, ()> {
+    // We will only allow to work with document-bound nodes for now, to avoid the problems of memory management.
+    let c_content = CString::new(content).unwrap();
+    let node = unsafe { xmlNewDocText(doc.doc_ptr, c_content.as_ptr()) };
+    if node.is_null() {
+      Err(())
+    } else {
+      Ok(Node { node_ptr : node })
+    }
+  }
+
+  /// Frees the node and all children
+  /// Do not use this `Node` or clones of it anymore!!
+  /// Does not unlink the node!!
+  pub fn free(&self) {
+    unsafe { xmlFreeNode(self.node_ptr) };
+  }
+
+  /// Unlinks this node from the DOM - does not free the allocated memory!
+  pub fn unlink(&self) {
+    unsafe { xmlUnlinkNode(self.node_ptr) };
+  }
+
   /// Returns the next sibling if it exists
   pub fn get_next_sibling(&self) -> Option<Node> {
     let ptr = unsafe { xmlNextSibling(self.node_ptr) };
@@ -345,6 +369,14 @@ impl Node {
     let prop_str = str::from_utf8(c_value_string.to_bytes()).unwrap().clone().to_owned();
     unsafe { libc::free(value_ptr as *mut c_void); }
     Some(prop_str)
+  }
+
+  /// Adds a property
+  /// TODO: Proper attribute handling (as `struct`)
+  pub fn add_property(&self, name: &str, value: &str) {
+    let c_name = CString::new(name).unwrap();
+    let c_value = CString::new(value).unwrap();
+    unsafe { xmlNewProp(self.node_ptr, c_name.as_ptr(), c_value.as_ptr()) };
   }
 
   /// Get a set of class names from this node's attributes
