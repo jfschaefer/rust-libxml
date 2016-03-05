@@ -16,6 +16,7 @@ extern "C" {
     pub fn xmlUnlinkNode(cur: *mut c_void);
     pub fn xmlNewNs(node : *mut c_void, href: *const c_char, prefix: *const c_char) -> *mut c_void;
     pub fn xmlNewChild(parent : *mut c_void, ns: *mut c_void, name: *const c_char, content: *const c_char) -> *mut c_void;
+    pub fn xmlAddChild(parent : *mut c_void, cur : *mut c_void) -> *mut c_void;
     pub fn xmlNewTextChild(parent : *mut c_void, ns: *mut c_void, name: *const c_char, content: *const c_char) -> *mut c_void;
     pub fn xmlNewText(parent : *mut c_void, content: *const c_char) -> *mut c_void;
     pub fn xmlNewDocPI(doc: *mut c_void, name: *const c_char, content: *const  c_char) -> *mut c_void;

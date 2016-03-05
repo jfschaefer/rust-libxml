@@ -30,7 +30,7 @@ fn hello_builder() {
 
   hello_element.set_content("world!");
 
-  let added = hello_element.add_child(None, "child");
+  let added = hello_element.new_child(None, "child");
   assert!(added.is_ok());
   let new_child = added.unwrap();
 

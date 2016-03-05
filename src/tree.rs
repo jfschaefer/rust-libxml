@@ -390,8 +390,8 @@ impl Node {
     set
   }
 
-  /// Appends a child `Node` to this `Node`
-  pub fn add_child(&mut self, ns : Option<Namespace>, name : &str) -> Result<Node, ()>{
+  /// Appends a new child `Node` to this `Node`
+  pub fn new_child(&self, ns : Option<Namespace>, name : &str) -> Result<Node, ()>{
     let c_name = CString::new(name).unwrap();
     let ns_ptr = match ns {
       None => ptr::null_mut(),
@@ -401,6 +401,13 @@ impl Node {
       let new_ptr = xmlNewChild(self.node_ptr, ns_ptr, c_name.as_ptr(),  ptr::null());
       return Ok(Node { node_ptr : new_ptr})
     }
+  }
+
+  /// Appends a new child
+  /// Warning: Child node gets freed if it is a text node
+  /// and gets merged with an adjacent text node!
+  pub fn add_child(&self, cur: &Node) {
+    unsafe { xmlAddChild(self.node_ptr, cur.node_ptr) };
   }
 
   /// Adds a new text child, to this `Node`
