@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["global","Global memory management"],["parser","XML and HTML parsing The parser functionality"],["tree","Manipulations on the DOM representation The tree functionality"],["xpath","XPath module for global lookup in the DOM The XPath functionality"]]});

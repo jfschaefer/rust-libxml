@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_libxml_global_drop","Currently a no-op use `force_global_drop` instead."],["_libxml_global_init","Initializes the global libxml2 context once, before the first libxml2 object allocation"],["force_global_drop","Forces a drop of global libxml2 context. Only invoke after all threads using libxml2 are finished."]]});

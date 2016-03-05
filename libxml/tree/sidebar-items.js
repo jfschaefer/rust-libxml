@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["NodeType","Types of xml nodes"]],"struct":[["Document","A libxml2 Document"],["Namespace","An xml namespace"],["Node","An xml node"]]});
