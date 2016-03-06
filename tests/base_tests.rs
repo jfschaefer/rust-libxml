@@ -127,7 +127,7 @@ fn sibling_unit_tests() {
   doc.set_root_element(&mut hello_element);
 
   let new_sibling = Node::new("sibling", None, &doc).unwrap();
-  assert!(hello_element.add_prev_sibling(new_sibling).is_some());
+  hello_element.add_prev_sibling(new_sibling).unwrap();
 }
 
 #[test]

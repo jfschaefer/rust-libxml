@@ -316,13 +316,14 @@ impl Node {
   }
 
   /// Add a previous sibling
-  pub fn add_prev_sibling(&self, new_sibling : Node) -> Option<Node> {
-    // TODO: Think of using a Result type, the libxml2 call returns NULL on error, or the child node on success
+  /// Warning: Gets freed if its is a text node and gets merged - new node returned.
+  pub fn add_prev_sibling(&self, new_sibling : Node) -> Result<Node, ()> {
     unsafe {
-      if xmlAddPrevSibling(self.node_ptr, new_sibling.node_ptr).is_null() {
-        None
+      let new = xmlAddPrevSibling(self.node_ptr, new_sibling.node_ptr);
+      if new.is_null() {
+        Err(())
       } else {
-        Some(new_sibling)
+        Ok(Node { node_ptr : new })
       }
     }
   }
@@ -406,8 +407,16 @@ impl Node {
   /// Appends a new child
   /// Warning: Child node gets freed if it is a text node
   /// and gets merged with an adjacent text node!
-  pub fn add_child(&self, cur: &Node) {
-    unsafe { xmlAddChild(self.node_ptr, cur.node_ptr) };
+  /// New node gets returned
+  pub fn add_child(&self, cur: &Node) -> Result<Node, ()> {
+    unsafe {
+      let new = xmlAddChild(self.node_ptr, cur.node_ptr);
+      if new.is_null() {
+        Err(())
+      } else {
+        Ok(Node { node_ptr : new })
+      }
+    }
   }
 
   /// Adds a new text child, to this `Node`
