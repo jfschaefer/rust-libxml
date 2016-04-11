@@ -31,6 +31,7 @@ extern "C" {
     pub fn xmlNextSibling(cur: *const c_void) -> *mut c_void;
     pub fn xmlPrevSibling(cur: *const c_void) -> *mut c_void;
     pub fn xmlAddPrevSibling(cur: *const c_void, new: *const c_void) -> *mut c_void;
+    pub fn xmlRemovePropertyWithName(cur: *const c_void, name: *const c_char);
     pub fn xmlGetFirstChild(cur: *const c_void) -> *mut c_void;
     pub fn xmlGetParent(cur: *const c_void) -> *mut c_void;
     pub fn xmlNodeGetName(cur: *const c_void) -> *const c_char;

@@ -380,6 +380,12 @@ impl Node {
     unsafe { xmlNewProp(self.node_ptr, c_name.as_ptr(), c_value.as_ptr()) };
   }
 
+  /// Removes property with a certain `name` if it exists
+  pub fn remove_property_with_name(&self, name: &str) {
+    let c_name = CString::new(name).unwrap();
+    unsafe { xmlRemovePropertyWithName(self.node_ptr, c_name.as_ptr()) };
+  }
+
   /// Get a set of class names from this node's attributes
   pub fn get_class_names(&self) -> HashSet<String> {
     let mut set = HashSet::new();
@@ -390,6 +396,7 @@ impl Node {
     }
     set
   }
+
 
   /// Appends a new child `Node` to this `Node`
   pub fn new_child(&self, ns : Option<Namespace>, name : &str) -> Result<Node, ()>{

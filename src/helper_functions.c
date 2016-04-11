@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "helper_functions.h"
 
 
@@ -33,6 +35,17 @@ const char * xmlNodeGetContentPointer(const xmlNodePtr cur) {
     return (char *) cur->content;
 }
 
+void xmlRemovePropertyWithName(const xmlNodePtr cur, const char *name) {
+    xmlAttrPtr attr = cur->properties;
+    while (attr != NULL) {
+        if (!strcmp(attr->name, name)) {
+            xmlRemoveProp(attr);
+            break;
+        } else {
+            attr = attr->next;
+        }
+    }
+}
 
 
 /*

@@ -35,6 +35,9 @@ int xmlGetNodeType(const xmlNodePtr cur);
 //(Different from xmlNodeGetContent)
 const char * xmlNodeGetContentPointer(const xmlNodePtr cur);
 
+// removes first property with name name, if it exists
+void xmlRemovePropertyWithName(const xmlNodePtr cur, const char *name);
+
 
 /*
  * helper functions for xpath
