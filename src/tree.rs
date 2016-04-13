@@ -357,9 +357,8 @@ impl Node {
   /// i.e. recurses through children if it is not a text node
   pub fn get_all_content(&self) -> String {
     let content_ptr = unsafe { xmlNodeGetContent(self.node_ptr) };
-    if content_ptr.is_null() { return String::new() }  //empty string
+    // if content_ptr.is_null() { return String::new() }  //empty string
     let c_string = unsafe { CStr::from_ptr(content_ptr) };
-    unsafe { xmlFree(content_ptr) };
     str::from_utf8(c_string.to_bytes()).unwrap().to_owned()
   }
 
