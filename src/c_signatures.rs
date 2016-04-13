@@ -36,6 +36,7 @@ extern "C" {
     pub fn xmlGetParent(cur: *const c_void) -> *mut c_void;
     pub fn xmlNodeGetName(cur: *const c_void) -> *const c_char;
     pub fn xmlNodeGetContentPointer(cur: *const c_void) -> *const c_char;
+    pub fn xmlNodeGetContent(cur: *const c_void) -> *const c_char;
     pub fn xmlNodeSetContent(node : *mut c_void, cur: *const c_char);
     pub fn xmlGetNodeType(cur: *const c_void) -> c_int;
     pub fn xmlBufferCreate() -> *mut c_void;
@@ -60,7 +61,7 @@ extern "C" {
     // pub fn xmlMemoryDump();
     pub fn xmlInitGlobals();
     pub fn xmlCleanupGlobals();
-    // pub fn xmlFree(some: *const c_char);
+    pub fn xmlFree(some: *const c_char);
     pub fn xmlKeepBlanksDefault(flag : c_uint) -> c_uint;
     // pub fn xmlFreeParserCtxt(ctxt: *mut c_void);
     pub fn htmlFreeParserCtxt(ctxt: *mut c_void);
