@@ -10,9 +10,10 @@ extern "C" {
   pub fn xmlFreeDoc(cur: *mut c_void);
   // pub fn xmlFree(name : *const c_char);
   // pub fn xmlNewNode(ns : *mut c_void, name: *const c_char) -> *mut c_void;
+  pub fn xmlUnlinkNode(cur : *mut c_void) -> *mut c_void;
   pub fn xmlNewDocNode(doc: *mut c_void, ns: *mut c_void, name: *const c_char, content: *const c_char) -> *mut c_void;
   pub fn xmlNewDocText(doc: *mut c_void, content: *const c_char) -> *mut c_void;
-  // pub fn xmlFreeNode(cur: *mut c_void);
+  pub fn xmlFreeNode(cur: *mut c_void);
   pub fn xmlNewNs(node: *mut c_void, href: *const c_char, prefix: *const c_char) -> *mut c_void;
   pub fn xmlNewChild(parent: *mut c_void, ns: *mut c_void, name: *const c_char, content: *const c_char) -> *mut c_void;
   pub fn xmlNewTextChild(parent: *mut c_void, ns: *mut c_void, name: *const c_char, content: *const c_char) -> *mut c_void;
@@ -62,6 +63,7 @@ extern "C" {
   pub fn xmlDocDumpFormatMemoryEnc(doc: *mut c_void, receiver: *mut *mut c_char, size: *const c_int, encoding: *const c_char, format: c_int);
   pub fn setIndentTreeOutput(indent: c_int);
   pub fn getIndentTreeOutput() -> c_int;
+  pub fn xmlNewProp(node: *const c_void, name: *const c_char, value: *const c_char) -> *mut c_void;
 
   // parser
   pub fn xmlReadFile(filename: *const c_char, encoding: *const c_char, options: c_uint) -> *mut c_void;

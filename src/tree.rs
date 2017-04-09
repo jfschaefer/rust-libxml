@@ -302,6 +302,18 @@ impl Node {
     unsafe { mem::transmute::<*mut libc::c_void, usize>(self.node_ptr) }
   }
 
+  /// Frees the node and all children
+  /// Do not use this `Node` or clones of it anymore!!
+  /// Does not unlink the node!!
+  pub fn free(&self) {
+    unsafe { xmlFreeNode(self.node_ptr) };
+  }
+
+  /// Unlinks this node from the DOM - does not free the allocated memory!
+  pub fn unlink(&self) {
+    unsafe { xmlUnlinkNode(self.node_ptr) };
+  }
+
   /// Returns the next sibling if it exists
   pub fn get_next_sibling(&self) -> Option<Node> {
     let ptr = unsafe { xmlNextSibling(self.node_ptr) };
@@ -605,7 +617,12 @@ impl Node {
     }
   }
 
-
+  /// Adds a property
+  pub fn add_property(&self, name: &str, value: &str) {
+    let c_name = CString::new(name).unwrap();
+    let c_value = CString::new(value).unwrap();
+    unsafe { xmlNewProp(self.node_ptr, c_name.as_ptr(), c_value.as_ptr()) };
+  }
 
   /// Get a set of class names from this node's attributes
   pub fn get_class_names(&self) -> HashSet<String> {
